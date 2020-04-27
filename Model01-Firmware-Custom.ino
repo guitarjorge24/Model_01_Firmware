@@ -126,7 +126,9 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { PRIMARY, NUMPAD, FUNCTION, YTREWQ}; // layers
+// The order of these enums must match the order in which keyboard layouts are defined in KEYMAPS()
+// The FUNCTION layer should always be the last or "topmost" layer so that it can override any other layers when the fn key is pressed
+enum { PRIMARY, YTREWQ, NUMPAD, FUNCTION}; // layers
 
 
 /**
@@ -227,51 +229,51 @@ KEYMAPS(
 
 #endif
 
-  [NUMPAD] =  KEYMAP_STACKED 
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___,
+	// YTREWQ is a mirror-layer of QWERTY
+	[YTREWQ] = KEYMAP_STACKED(
+	___,				Key_0,			Key_9,		Key_8,		Key_7,	Key_6,	Key_LEDEffectNext,
+	Key_Backtick,		Key_P,			Key_O,		Key_I,		Key_U,	Key_Y,	Key_Tab,
+	Key_PageUp,			Key_Semicolon,	Key_L,		Key_K,		Key_J,	Key_H,
+	Key_PageDown,		Key_Slash,		Key_Period,	Key_Comma,	Key_M,	Key_N,	Key_Escape,
+		LockLayer(YTREWQ),	Key_LeftShift,	Key_LeftAlt,	Key_LeftGui,
+		Key_LeftControl,
 
-   ___,						___,				Key_Keypad7,	Key_Keypad8,			Key_Keypad9,	Key_KeypadSubtract,		___,
-   ___,						Key_Enter,			Key_Keypad4,	Key_Keypad5,			Key_Keypad6,	Key_KeypadAdd,			___,
+	LCTRL(LALT(LSHIFT(Key_J))),	Key_6,	Key_7, Key_8,		Key_9,		Key_0,			LockLayer(NUMPAD),
+	Key_Enter,					Key_Y,	Key_U, Key_I,		Key_O,		Key_P,			Key_Equals,
+								Key_H,	Key_J, Key_K,		Key_L,		Key_Semicolon,	Key_Quote,
+	Key_RightAlt,				Key_N,	Key_M, Key_Comma,	Key_Period,	Key_Slash,		Key_Minus,
+		Key_RightShift,	Key_LeftAlt, Key_Spacebar, Key_Backspace,
+		ShiftToLayer(FUNCTION)),
+
+  [NUMPAD] =  KEYMAP_STACKED(
+	___, ___, ___, ___, ___, ___, ___,
+	___, ___, ___, ___, ___, ___, ___,
+	___, ___, ___, ___, ___, ___,
+	___, ___, ___, ___, ___, ___, ___,
+		 ___, ___, ___, ___,
+		 ___,
+
+	___,					___,				Key_Keypad7,	Key_Keypad8,			Key_Keypad9,	Key_KeypadSubtract,		___,
+	___,					Key_Enter,			Key_Keypad4,	Key_Keypad5,			Key_Keypad6,	Key_KeypadAdd,			___,
 							Key_Escape,			Key_Keypad1,	Key_Keypad2,			Key_Keypad3,	Key_KeypadMultiply,		___,
-   M(MACRO_VERSION_INFO),	Key_KeypadNumLock,	Key_Keypad0,	M(MACRO_TRIPLE_ZERO),	Key_KeypadDot,	Key_KeypadDivide,		___,
-   ___, ___, ___, ___,
-   ___),
+	M(MACRO_VERSION_INFO),	Key_KeypadNumLock,	Key_Keypad0,	M(MACRO_TRIPLE_ZERO),	Key_KeypadDot,	Key_KeypadDivide,		___,
+		___, ___, ___, ___,
+		___),
 
-  [FUNCTION] =  KEYMAP_STACKED
-  (M(MACRO_ANY),	Key_F1,				Key_F2,					Key_F3,			Key_F4,			Key_F5,			Key_CapsLock,
-   ___,				___,				LALT(Key_UpArrow),		___,			___,			LGUI(Key_8),	___,
-   Key_Home, 		Key_CapsLock,		LGUI(Key_N), 		Key_Delete,		Key_Spacebar, 	___,
-   Key_End,			Key_PrintScreen,	Key_Insert,  			___,			___, 			___,			___,
-   ___, ___, ___, ___,	
-   ___,
+  [FUNCTION] =  KEYMAP_STACKED(
+	M(MACRO_ANY),	Key_F1,				Key_F2,					Key_F3,			Key_F4,			Key_F5,			Key_CapsLock,
+	___,			___,				LALT(Key_UpArrow),		___,			___,			LGUI(Key_8),	___,
+	Key_Home, 		Key_CapsLock,		LGUI(Key_N), 			Key_Delete,		Key_Spacebar, 	___,
+	Key_End,		Key_PrintScreen,	Key_Insert,  			___,			___, 			___,			___,
+		___, ___, ___, ___,	
+		___,
 
 	Consumer_ScanPreviousTrack,	Key_F6,					Key_F7,						Key_F8,						Key_F9,				Key_F10,			___,
 	Consumer_PlaySlashPause,	Consumer_ScanNextTrack,	Key_LeftCurlyBracket,		Key_RightCurlyBracket,		Key_LeftBracket,	Key_RightBracket,	___,
 								Key_LeftArrow,			Key_DownArrow,				Key_UpArrow,				Key_RightArrow,		Key_F11,			Key_F12,
 	Key_PcApplication,			Consumer_Mute,			Consumer_VolumeDecrement,	Consumer_VolumeIncrement,	___,				Key_Backslash,		Key_Pipe,
-   ___, ___, Key_Enter, ___,
-   ___),
-   
-  // YTREWQ is a mirror-layer of QWERTY
-  [YTREWQ] = KEYMAP_STACKED
-  (___,				Key_0,			Key_9,		Key_8,		Key_7,	Key_6,	Key_LEDEffectNext,
-   Key_Backtick,	Key_P,			Key_O,		Key_I,		Key_U,	Key_Y,	Key_Tab,
-   Key_PageUp,		Key_Semicolon,	Key_L,		Key_K,		Key_J,	Key_H,
-   Key_PageDown,	Key_Slash,		Key_Period,	Key_Comma,	Key_M,	Key_N,	Key_Escape,
-   ___,	Key_LeftShift,	Key_LeftAlt,	Key_LeftGui,
-   Key_LeftControl,
-
-   LCTRL(LALT(LSHIFT(Key_J))),	Key_6,	Key_7, Key_8,		Key_9,		Key_0,			LockLayer(NUMPAD),
-   Key_Enter,					Key_Y,	Key_U, Key_I,		Key_O,		Key_P,			Key_Equals,
-								Key_H,	Key_J, Key_K,		Key_L,		Key_Semicolon,	Key_Quote,
-   Key_RightAlt,				Key_N,	Key_M, Key_Comma,	Key_Period,	Key_Slash,		Key_Minus,
-   Key_RightShift,	Key_LeftAlt, Key_Spacebar, Key_Backspace,
-   ShiftToLayer(FUNCTION))
+		___, ___, Key_Enter, ___,
+		___)
 ) // KEYMAPS(
 
 /* Re-enable astyle's indent enforcement */
@@ -514,14 +516,15 @@ KALEIDOSCOPE_INIT_PLUGINS(
  * Kaleidoscope and any plugins.
  */
 void setup() {
-  //arguments are Qukey(keyboardLayerNumber, KeyAddr(RowNumber, ColumnNumber), KeyToUseWhenHeldDown)
+  //arguments are Qukey(keyboardLayerNumber, KeyAddr(RowNumber, ColumnNumber), AltKeyToUseWhenHeldDown)
   //see this reference for finding a key's row and column number https://github.com/keyboardio/Kaleidoscope-Hardware-Model01/blob/f469015346535cb864a340bf8eb317d268943248/src/Kaleidoscope-Hardware-Model01.h#L267-L279
   QUKEYS( 
-	kaleidoscope::plugin::Qukey(0, KeyAddr(0, 7), ShiftToLayer(FUNCTION)) // KeyAddr(0, 7) is the key labeled as "ctrl" on the left hand
+	kaleidoscope::plugin::Qukey(PRIMARY, KeyAddr(0, 7), ShiftToLayer(FUNCTION)), // KeyAddr(0, 7) is the key labeled as "ctrl" on the left hand
+	kaleidoscope::plugin::Qukey(YTREWQ, KeyAddr(0, 7), ShiftToLayer(FUNCTION))
   )
 
-  Qukeys.setTimeout(200);
-  Qukeys.setReleaseDelay(20);
+  Qukeys.setHoldTimeout(200); //how many milliseconds to press qukey before it triggers alternate value
+  Qukeys.setOverlapThreshold(60); //its a percentage such as 60%
   
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
