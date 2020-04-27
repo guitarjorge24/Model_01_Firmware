@@ -20,9 +20,6 @@
 // Support for communicating with the host via a simple Serial protocol
 #include "Kaleidoscope-FocusSerial.h"
 
-// Support for keys that move the mouse
-#include "Kaleidoscope-MouseKeys.h"
-
 // Support for macros
 #include "Kaleidoscope-Macros.h"
 
@@ -495,9 +492,6 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // The macros plugin adds support for macros
   Macros,
-
-  // The MouseKeys plugin lets you add keys to your keymap which move the mouse.
-  MouseKeys,
 
   // The HostPowerManagement plugin allows us to turn LEDs off when then host
   // goes to sleep, and resume them when it wakes up.
