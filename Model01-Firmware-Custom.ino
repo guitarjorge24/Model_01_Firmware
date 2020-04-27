@@ -57,8 +57,8 @@
 #include "Kaleidoscope-USB-Quirks.h"
 
 //Overload keys on your keyboard so that they produce one keycode when tapped, and a different keycode when held.
-// https://github.com/keyboardio/Kaleidoscope-Qukeys
-// example on how to use https://github.com/keyboardio/Kaleidoscope/blob/master/examples/Keystrokes/Qukeys/Qukeys.ino
+// Example on how to use https://github.com/keyboardio/Kaleidoscope/blob/master/examples/Keystrokes/Qukeys/Qukeys.ino
+// Archived/outdated repo https://github.com/keyboardio/Kaleidoscope-Qukeys
 #include <Kaleidoscope-Qukeys.h>
 
 /** This 'enum' is a list of all the macros used by the Model 01's firmware
@@ -163,15 +163,15 @@ KEYMAPS(
    Key_Backtick,	Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
    Key_PageUp,		Key_A, Key_S, Key_D, Key_F, Key_G,
    Key_PageDown,	Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
-   Key_F, Key_LeftShift, Key_LeftAlt, Key_LeftGui,
-   Key_LeftControl,
+		LockLayer(YTREWQ), Key_LeftShift, Key_LeftAlt, Key_LeftGui,
+		Key_LeftControl,
 
    LCTRL(LALT(LSHIFT(Key_J))),	Key_6,	Key_7, Key_8,		Key_9,         Key_0,         LockLayer(NUMPAD),
    Key_Enter,					Key_Y,	Key_U, Key_I,		Key_O,         Key_P,         Key_Equals,
 								Key_H,	Key_J, Key_K,		Key_L,         Key_Semicolon, Key_Quote,
    Key_RightAlt,				Key_N,	Key_M, Key_Comma,	Key_Period,    Key_Slash,     Key_Minus,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_Backspace,
-   ShiftToLayer(FUNCTION)),
+		Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_Backspace,
+		ShiftToLayer(FUNCTION)),
 
 #elif defined (PRIMARY_KEYMAP_DVORAK)
 
@@ -266,7 +266,7 @@ KEYMAPS(
    Key_Backtick,	Key_P,			Key_O,		Key_I,		Key_U,	Key_Y,	Key_Tab,
    Key_PageUp,		Key_Semicolon,	Key_L,		Key_K,		Key_J,	Key_H,
    Key_PageDown,	Key_Slash,		Key_Period,	Key_Comma,	Key_M,	Key_N,	Key_Escape,
-   ShiftToLayer(FUNCTION),	Key_LeftShift,	Key_LeftAlt,	Key_LeftGui,
+   ___,	Key_LeftShift,	Key_LeftAlt,	Key_LeftGui,
    Key_LeftControl,
 
    LCTRL(LALT(LSHIFT(Key_J))),	Key_6,	Key_7, Key_8,		Key_9,		Key_0,			LockLayer(NUMPAD),
@@ -523,7 +523,7 @@ void setup() {
   //arguments are Qukey(keyboardLayerNumber, KeyAddr(RowNumber, ColumnNumber), KeyToUseWhenHeldDown)
   //see this reference for finding a key's row and column number https://github.com/keyboardio/Kaleidoscope-Hardware-Model01/blob/f469015346535cb864a340bf8eb317d268943248/src/Kaleidoscope-Hardware-Model01.h#L267-L279
   QUKEYS( 
-	kaleidoscope::plugin::Qukey(0, KeyAddr(0, 7), ShiftToLayer(FUNCTION))
+	kaleidoscope::plugin::Qukey(0, KeyAddr(0, 7), ShiftToLayer(FUNCTION)) // KeyAddr(0, 7) is the key labeled as "ctrl" on the left hand
   )
 
   Qukeys.setTimeout(200);
