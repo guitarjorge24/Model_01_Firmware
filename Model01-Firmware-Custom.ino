@@ -56,6 +56,9 @@
 // Support for USB quirks, like changing the key state report protocol
 #include "Kaleidoscope-USB-Quirks.h"
 
+//Overload keys on your keyboard so that they produce one keycode when tapped, and a different keycode when held.
+#include <Kaleidoscope-Qukeys.h>
+
 /** This 'enum' is a list of all the macros used by the Model 01's firmware
   * The names aren't particularly important. What is important is that each
   * is unique.
@@ -410,6 +413,9 @@ USE_MAGIC_COMBOS({.action = toggleKeyboardProtocol,
 // The order can be important. For example, LED effects are
 // added in the order they're listed here.
 KALEIDOSCOPE_INIT_PLUGINS(
+  // https://github.com/keyboardio/Kaleidoscope-Qukeys
+  Qukeys,
+
   // The EEPROMSettings & EEPROMKeymap plugins make it possible to have an
   // editable keymap in EEPROM.
   EEPROMSettings,
@@ -497,6 +503,13 @@ KALEIDOSCOPE_INIT_PLUGINS(
  * Kaleidoscope and any plugins.
  */
 void setup() {
+  QUKEYS( //if I comment out these 3 lines, my ino verifies without errors.
+    kaleidoscope::Qukey(0, 2, 1, Key_LeftGui)
+  )
+
+  Qukeys.setTimeout(200);
+  Qukeys.setReleaseDelay(20);
+  
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
 
