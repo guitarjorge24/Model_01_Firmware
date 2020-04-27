@@ -1,8 +1,11 @@
+// #ToDo: Change LED colors when switching to mirror layer
 // -*- mode: c++ -*-
 // See "LICENSE" for license details
 
 #ifndef BUILD_INFORMATION
 #define BUILD_INFORMATION "Custom firmware by Jorge L."
+// Updated to the version from 2020-01-15
+// https://github.com/keyboardio/Model01-Firmware/commit/03bee4b8746aa79a0f1dcf5e5c0c2a1742b8162d
 #endif
 
 /**
@@ -305,12 +308,12 @@ static void anyKeyMacro(uint8_t keyState) {
   static Key lastKey;
   bool toggledOn = false;
   if (keyToggledOn(keyState)) {
-    lastKey.keyCode = Key_A.keyCode + (uint8_t)(millis() % 36);
+    lastKey.setKeyCode(Key_A.getKeyCode() + (uint8_t)(millis() % 36));
     toggledOn = true;
   }
 
   if (keyIsPressed(keyState))
-    kaleidoscope::hid::pressKey(lastKey, toggledOn);
+    Kaleidoscope.hid().keyboard().pressKey(lastKey, toggledOn);
 }
 
 
@@ -361,13 +364,10 @@ static kaleidoscope::plugin::LEDSolidColor solidViolet(130, 0, 120);
 void toggleLedsOnSuspendResume(kaleidoscope::plugin::HostPowerManagement::Event event) {
   switch (event) {
   case kaleidoscope::plugin::HostPowerManagement::Suspend:
-    LEDControl.set_all_leds_to({0, 0, 0});
-    LEDControl.syncLeds();
-    LEDControl.paused = true;
+    LEDControl.disable();
     break;
   case kaleidoscope::plugin::HostPowerManagement::Resume:
-    LEDControl.paused = false;
-    LEDControl.refreshAll();
+    LEDControl.enable();
     break;
   case kaleidoscope::plugin::HostPowerManagement::Sleep:
     break;
