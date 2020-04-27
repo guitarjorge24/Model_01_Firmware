@@ -124,7 +124,7 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { PRIMARY, NUMPAD, FUNCTION }; // layers
+enum { PRIMARY, NUMPAD, FUNCTION, YTREWQ}; // layers
 
 
 /**
@@ -253,7 +253,23 @@ KEYMAPS(
 								Key_LeftArrow,			Key_DownArrow,				Key_UpArrow,				Key_RightArrow,		Key_F11,			Key_F12,
 	Key_PcApplication,			Consumer_Mute,			Consumer_VolumeDecrement,	Consumer_VolumeIncrement,	___,				Key_Backslash,		Key_Pipe,
    ___, ___, Key_Enter, ___,
-   ___)
+   ___),
+   
+  // YTREWQ is a mirror-layer of QWERTY
+  [YTREWQ] = KEYMAP_STACKED
+  (___,				Key_0,			Key_9,		Key_8,		Key_7,	Key_6,	Key_LEDEffectNext,
+   Key_Backtick,	Key_P,			Key_O,		Key_I,		Key_U,	Key_Y,	Key_Tab,
+   Key_PageUp,		Key_Semicolon,	Key_L,		Key_K,		Key_J,	Key_H,
+   Key_PageDown,	Key_Slash,		Key_Period,	Key_Comma,	Key_M,	Key_N,	Key_Escape,
+   ShiftToLayer(FUNCTION),	Key_LeftShift,	Key_LeftAlt,	Key_LeftGui,
+   Key_LeftControl,
+
+   LCTRL(LALT(LSHIFT(Key_J))),	Key_6,	Key_7, Key_8,		Key_9,		Key_0,			LockLayer(NUMPAD),
+   Key_Enter,					Key_Y,	Key_U, Key_I,		Key_O,		Key_P,			Key_Equals,
+								Key_H,	Key_J, Key_K,		Key_L,		Key_Semicolon,	Key_Quote,
+   Key_RightAlt,				Key_N,	Key_M, Key_Comma,	Key_Period,	Key_Slash,		Key_Minus,
+   Key_RightShift,	Key_LeftAlt, Key_Spacebar, Key_Backspace,
+   ShiftToLayer(FUNCTION))
 ) // KEYMAPS(
 
 /* Re-enable astyle's indent enforcement */
