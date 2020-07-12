@@ -7,7 +7,8 @@
                 "C:/Program Files (x86)/Arduino/hardware/arduino/avr/**",
                 "C:/Program Files (x86)/Arduino/hardware/tools/avr/**",
                 "C:/Users/Jorge/AppData/Local/Arduino15/packages/keyboardio/hardware/avr/**",
-                "C:\\Users\\Jorge\\AppData\\Local\\Arduino15\\packages\\keyboardio\\hardware\\avr\\1.96.0\\**"
+                "C:\\Users\\Jorge\\AppData\\Local\\Arduino15\\packages\\keyboardio\\hardware\\avr\\1.96.0\\**",
+                "C:\\Users\\Jorge\\Documents\\Arduino\\hardware\\keyboardio\\avr\\**"
             ],
             "defines": [
                 "_DEBUG",
