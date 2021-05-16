@@ -151,8 +151,8 @@ enum { PRIMARY, YTREWQ, NUMPAD, FUNCTION}; // layers
   */
 
 #define PRIMARY_KEYMAP_QWERTY
-// #define PRIMARY_KEYMAP_COLEMAK
 // #define PRIMARY_KEYMAP_DVORAK
+// #define PRIMARY_KEYMAP_COLEMAK
 // #define PRIMARY_KEYMAP_CUSTOM
 
 /* This comment temporarily turns off astyle's indent enforcement
@@ -570,7 +570,7 @@ void setup() {
     CRGB(0, 160, 0) // FUNCTION = green
   };
 
-  LEDActiveLayerColorEffect.setColormap(layerColormap);a
+  LEDActiveLayerColorEffect.setColormap(layerColormap);
 }
 
 /** loop is the second of the standard Arduino sketch functions.
