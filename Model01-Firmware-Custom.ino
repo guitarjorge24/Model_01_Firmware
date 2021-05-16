@@ -29,6 +29,9 @@
 // Support for controlling the keyboard's LEDs
 #include "Kaleidoscope-LEDControl.h"
 
+// Support for setting all keys in a layer to a single color
+#include "Kaleidoscope-LED-ActiveLayerColor.h"
+
 // Support for "Numpad" mode, which is mostly just the Numpad specific LED mode
 #include "Kaleidoscope-NumPad.h"
 
@@ -160,19 +163,19 @@ enum { PRIMARY, YTREWQ, NUMPAD, FUNCTION}; // layers
 KEYMAPS(
 
 #if defined (PRIMARY_KEYMAP_QWERTY)
-  [PRIMARY] = KEYMAP_STACKED
-  (___,				Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick,	Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
-   Key_PageUp,		Key_A, Key_S, Key_D, Key_F, Key_G,
-   Key_PageDown,	Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
+	[PRIMARY] = KEYMAP_STACKED
+	(___,			Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
+	Key_Backtick,	Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
+	Key_PageUp,		Key_A, Key_S, Key_D, Key_F, Key_G,
+	Key_PageDown,	Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
 		LockLayer(YTREWQ), Key_LeftShift, Key_LeftAlt, Key_LeftGui,
 		Key_LeftControl,
 
-   LCTRL(LALT(LSHIFT(Key_J))),	Key_6,	Key_7, Key_8,		Key_9,         Key_0,         LockLayer(NUMPAD),
-   Key_Enter,					Key_Y,	Key_U, Key_I,		Key_O,         Key_P,         Key_Equals,
+	LCTRL(LALT(LSHIFT(Key_J))),	Key_6,	Key_7, Key_8,		Key_9,         Key_0,         LockLayer(NUMPAD),
+	Key_Enter,					Key_Y,	Key_U, Key_I,		Key_O,         Key_P,         Key_Equals,
 								Key_H,	Key_J, Key_K,		Key_L,         Key_Semicolon, Key_Quote,
-   Key_RightAlt,				Key_N,	Key_M, Key_Comma,	Key_Period,    Key_Slash,     Key_Minus,
-		Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_Backspace,
+	Key_RightAlt,				Key_N,	Key_M, Key_Comma,	Key_Period,    Key_Slash,     Key_Minus,
+		Key_RightShift, Key_F14, Key_Spacebar, Key_Backspace,
 		ShiftToLayer(FUNCTION)),
 
 #elif defined (PRIMARY_KEYMAP_DVORAK)
@@ -264,15 +267,15 @@ KEYMAPS(
 		___),
 
   [FUNCTION] =  KEYMAP_STACKED(
-	M(MACRO_ANY),	Key_F1,				Key_F2,					Key_F3,			Key_F4,			Key_F5,			Key_CapsLock,
-	___,			___,				LALT(Key_UpArrow),		___,			___,			LGUI(Key_8),	___,
-	Key_Home, 		Key_CapsLock,		LGUI(Key_N), 			Key_Delete,		Key_Spacebar, 	___,
-	Key_End,		Key_PrintScreen,	Key_Insert,  			___,			___, 			___,			___,
+	M(MACRO_ANY),	Key_F1,				Key_F2,					Key_F3,			Key_F4,				Key_F5,			Key_CapsLock,
+	___,			___,				LALT(Key_UpArrow),		___,			LSHIFT(Key_F10),	LGUI(Key_8),	___,
+	Key_Home, 		Key_CapsLock,		LGUI(Key_N), 			Key_Delete,		Key_Spacebar, 		___,
+	Key_End,		Key_PrintScreen,	Key_Insert,  			Key_Pause,		___, 				___,			___,
 		___, ___, ___, ___,	
 		___,
 
 	Consumer_ScanPreviousTrack,	Key_F6,					Key_F7,						Key_F8,						Key_F9,				Key_F10,			___,
-	Consumer_PlaySlashPause,	Consumer_ScanNextTrack,	Key_LeftCurlyBracket,		Key_RightCurlyBracket,		Key_LeftBracket,	Key_RightBracket,	___,
+	Consumer_PlaySlashPause,	Consumer_ScanNextTrack,	Key_LeftCurlyBracket,		Key_RightCurlyBracket,		Key_LeftBracket,	Key_RightBracket,	Key_F13,
 								Key_LeftArrow,			Key_DownArrow,				Key_UpArrow,				Key_RightArrow,		Key_F11,			Key_F12,
 	Key_PcApplication,			Consumer_Mute,			Consumer_VolumeDecrement,	Consumer_VolumeIncrement,	___,				Key_Backslash,		Key_Pipe,
 		___, ___, Key_Enter, ___,
@@ -457,6 +460,8 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // LEDControl provides support for other LED modes
   LEDControl,
 
+  LEDActiveLayerColorEffect,
+  
     // These static effects turn your keyboard's LEDs a variety of colors
 //   solidRed, solidOrange, solidYellow, 
   solidGreen, 
@@ -556,6 +561,16 @@ void setup() {
   // maps for. To make things simple, we set it to five layers, which is how
   // many editable layers we have (see above).
   ColormapEffect.max_layers(5);
+
+// Per-layer LED colors
+  static const cRGB layerColormap[] PROGMEM = {
+    CRGB(0, 160, 0), // PRIMARY = green
+    CRGB(0, 170, 170), // YTREWQ = cyan
+    CRGB(0, 160, 0), // NUMPAD = green
+    CRGB(0, 160, 0) // FUNCTION = green
+  };
+
+  LEDActiveLayerColorEffect.setColormap(layerColormap);a
 }
 
 /** loop is the second of the standard Arduino sketch functions.
