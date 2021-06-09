@@ -268,7 +268,7 @@ KEYMAPS(
 
   [FUNCTION] =  KEYMAP_STACKED(
 	M(MACRO_ANY),	Key_F1,				Key_F2,					Key_F3,			Key_F4,				Key_F5,			Key_CapsLock,
-	___,			___,				LALT(Key_UpArrow),		___,			LSHIFT(Key_F10),	LGUI(Key_8),	___,
+	___,			___,				LALT(Key_UpArrow),		Key_F15,			LSHIFT(Key_F10),	LGUI(Key_8),	___,
 	Key_Home, 		Key_CapsLock,		LGUI(Key_N), 			Key_Delete,		Key_Spacebar, 		___,
 	Key_End,		Key_PrintScreen,	Key_Insert,  			Key_Pause,		___, 				___,			___,
 		___, ___, ___, ___,	
